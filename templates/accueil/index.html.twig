@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <div class="alert alert-dark text-center p-1" role="alert">
+        Bienvenue sur mon blog.
+    </div>
+    <div class="list-group mb-5">
+        <div class="d-flex justify-content-start align-items-center list-group-item list-group-item-info">
+            Articles les plus récent :
+        </div>
+        {% for article in articles %}
+            <a href="{{ path("app_articles_slug", {slug: article.slug}) }}" class="list-group-item list-group-item-action">
+                <div class="d-flex justify-content-between align-items-center">
+                    {{ article.titre }}
+                    <span class="badge rounded-pill text-bg-danger">{{ article.createdAt.format('d/m/Y') }}</span>
+                </div>
+
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

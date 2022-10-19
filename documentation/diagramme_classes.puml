@@ -1,0 +1,46 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Article {
+    - id
+    - createdAt
+    - slug
+    - titre
+    - contenu
+    - estPublie
+}
+
+class Categorie {
+    - id
+    - titre
+    - slug
+}
+
+class Commentaire {
+    - id
+    - contenu
+    - createdAt
+}
+
+class Auteur {
+    - id
+    - prenom
+    - pseudo
+    - nom
+}
+
+class Contact {
+    - id
+    - nom
+    - contenu
+    - prenom
+    - email
+    - sujet
+    - createdAt
+}
+
+Article "0..*" --- "0..1" Categorie
+Commentaire "0..*" --- "1..1" Article
+Commentaire "1..*" --- "0..1" Auteur
+
+@enduml

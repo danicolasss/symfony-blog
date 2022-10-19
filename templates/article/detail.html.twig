@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail article{% endblock %}
+
+{% block body %}
+    <div class="h2 pb-2 text-primary border-bottom border-dark d-flex justify-content-between">
+        {{ article.titre }}
+        <div class="d-flex align-items-center">
+            {# Affichage du libelle de la catégorie si l'article en possède une. (En lien, pour afficher tout les articles de cette catégorie.) #}
+            {% if article.categorie is not null %}
+                <a href="{{ path('app_categories_slug', {'slug': article.categorie.slug}) }}" class="badge text-bg-secondary text-decoration-none">{{ article.categorie.titre }}</a>
+            {% else %}
+                <span class="badge text-bg-secondary text-decoration-none"> Sans catégorie</span>
+            {% endif %}
+            <a href="{{ path('app_articles_edit', {'slug': article.slug}) }}" class="btn btn-outline-secondary ms-2"><i class="bi bi-pencil-square"></i></a>
+        </div>
+    </div>
+    <span class=" mb-3">{{ article.createdAt.format('d/m/Y') }}</span>
+    <div class="p-2 mb-2 ">{{ article.contenu | raw }}</div>
+    {{ include('partials/_commentaires.html.twig') }}
+    <div class=" justify-content-md-center mb-4">
+        <div class="border border-info  p-3">
+            <legend>Ajouter un commentaire</legend>
+            {{ form_start(formCommentaire) }}
+            {{ form_row(formCommentaire.auteur)}}
+            {{ form_row(formCommentaire.contenu)}}
+            {{ form_widget(formCommentaire.article, {'value': article.id}) }}
+            <div class="d-flex ">
+                <input type="submit" class="btn btn-outline-success" value="Ajouter">
+            </div>
+            {{ form_end(formCommentaire) }}
+        </div>
+    </div>
+{% endblock %}
